@@ -45,7 +45,7 @@ sudo systemctl restart zabbix-agent
 sudo systemctl enable zabbix-agent
 ```
 ### 2. Now create the host in Zabbix WebUI
-Passive checks - Zabbix frontend
+Passive checks - Zabbix frontend:
 - Log into Zabbix frontend.
 - Create a host in Zabbix web interface.
 - This host will represent your Linux machine.
