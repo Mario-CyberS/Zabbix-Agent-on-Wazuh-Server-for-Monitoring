@@ -381,4 +381,4 @@ sudo tail -f /var/log/audit/audit.log
 ---
 
 ## 👨‍💻 Author  
-Mario Tagaras | Cybersecurity Engineer | Florida State University Alum  
+Mario Tagaras | Florida State University Alum  
