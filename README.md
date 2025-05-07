@@ -216,20 +216,24 @@ Next we will create the Item for rancid in zabbix:
 - Key: system.run[sudo /home/rancid/scripts/check_rancid_backups.sh > /dev/null; echo $?]
 - Type of info: Numeric (unsigned)
 - Description: Runs the check_rancid_backups.sh script, then echos exit code for trigger confirmation.
+
 Understanding the New Exit Codes:
 - 0: All backups are up-to-date (or the yearly check was skipped and monthly was OK). No Trigger
 - 1: No new monthly backup found. Trigger
 - 2: No new yearly backup found (on the first of the month). Trigger
+
 Next we will create the first Trigger for rancid monthly dir:
 - Name: Rancid: No new monthly backup in the last 24 hours
 - Severity: High
 - last(/Wazuh-SITE/system.run[sudo /home/rancid/scripts/check_rancid_backups.sh > /dev/null; echo $?])=1
 - Description: No new ASA configuration backup found in the SITE-monthly directory in the last 24 hours. Check the Rancid cron job on the Wazuh server.
+
 Next we will create the second Trigger for rancid yearly dir:
 - Name: Rancid: No new yearly backup on the first of the month
 - Severity: High
 - last(/Wazuh-SITE/system.run[sudo /home/rancid/scripts/check_rancid_backups.sh > /dev/null; echo $?])=2
 - Description: No new ASA configuration backup found in the SITE-yearly directory on the first of the month. Check the Rancid cron job on the Wazuh server.
+
 Now you can test all items to make sure they run by going to “Monitoring” → “Hosts” → “Wazuh-SITE” → “Items” → Choose your item → “Test” → “Get value and test”
 - This will run the command in the key and give back the value that it outputted, if something like “Permission denied” comes back then there is an issue (most likely a SELinux denial), if the intended out put like “active” comes back then its all good.
 You can also test the triggers, for example to test the Wazuh-Manager Service Status trigger, stop wazuh manager on the box, then you should receive an alert in slack, make sure to start it back up again.
